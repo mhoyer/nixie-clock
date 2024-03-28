@@ -5,6 +5,7 @@
 #define STORE_PIN 9
 #define DATA_PIN 10
 #define ONBOARD_LED_PIN 13
+// #define DEBUG true
 
 int counter = 0;
 
@@ -33,6 +34,16 @@ void updateShiftChainedRegisters(uint8_t value, uint8_t value2)
   digitalWrite(STORE_PIN, LOW);
   shiftOut(DATA_PIN, SHIFT_PIN, MSBFIRST, value);
   shiftOut(DATA_PIN, SHIFT_PIN, MSBFIRST, value2);
+  digitalWrite(STORE_PIN, HIGH);
+}
+
+void updateShiftChainedRegisters(uint8_t value1, uint8_t value2, uint8_t value3, uint8_t value4)
+{
+  digitalWrite(STORE_PIN, LOW);
+  shiftOut(DATA_PIN, SHIFT_PIN, MSBFIRST, value1);
+  shiftOut(DATA_PIN, SHIFT_PIN, MSBFIRST, value2);
+  shiftOut(DATA_PIN, SHIFT_PIN, MSBFIRST, value3);
+  shiftOut(DATA_PIN, SHIFT_PIN, MSBFIRST, value4);
   digitalWrite(STORE_PIN, HIGH);
 }
 
@@ -74,7 +85,8 @@ void loop()
 #endif
 
   // updateShiftChainedRegisters(255, numberMap[counter]);
-  updateShiftRegister(numberMap[counter]);
+  // updateShiftChainedRegisters(numberMap[counter], numberMap[counter], numberMap[counter], numberMap[counter]);
+  updateShiftChainedRegisters(255, 255, 255, numberMap[counter]);
 
   delay(50);
 
